@@ -1,7 +1,3 @@
--- since this is just an example spec, don't actually load anything here and return an empty spec
--- stylua: ignore
-if true then return {} end
-
 -- every spec file under config.plugins will be loaded automatically by lazy.nvim
 --
 -- In your plugin files, you can:
@@ -9,42 +5,12 @@ if true then return {} end
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-	-- add gruvbox
-	{ "ellisonleao/gruvbox.nvim" },
-	{ "loctvl842/monokai-pro.nvim" },
-
-	-- Configure LazyVim to load gruvbox
-	{
-		"LazyVim/LazyVim",
-		opts = {
-			colorscheme = "monokai-pro",
-		},
-	},
-
-	{
-		"f-person/auto-dark-mode.nvim",
-		config = {
-			update_interval = 1000,
-			set_dark_mode = function()
-				vim.api.nvim_set_option("background", "dark")
-				vim.cmd("colorscheme gruvbox")
-			end,
-			set_light_mode = function()
-				vim.api.nvim_set_option("background", "light")
-				vim.cmd("colorscheme gruvbox")
-			end,
-		},
-	}
-
 	-- change trouble config
 	{
 		"folke/trouble.nvim",
 		-- opts will be merged with the parent spec
 		opts = { use_diagnostic_signs = true },
 	},
-
-	-- disable trouble
-	{ "folke/trouble.nvim", enabled = false },
 
 	-- add symbols-outline
 	{
@@ -119,7 +85,7 @@ return {
 		dependencies = {
 			"jose-elias-alvarez/typescript.nvim",
 			init = function()
-				require("lazyvim.util").on_attach(function(_, buffer)
+				require("lazyvim.util").lsp.on_attach(function(_, buffer)
           -- stylua: ignore
           vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
 					vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
@@ -151,6 +117,7 @@ return {
 	-- for typescript, LazyVim also includes extra specs to properly setup lspconfig,
 	-- treesitter, mason and typescript.nvim. So instead of the above, you can use:
 	{ import = "lazyvim.plugins.extras.lang.typescript" },
+	{ import = "lazyvim.plugins.extras.lang.clangd" },
 
 	-- add more treesitter parsers
 	{
@@ -158,7 +125,7 @@ return {
 		opts = {
 			ensure_installed = {
 				"bash",
-				"help",
+				-- "help",
 				"html",
 				"javascript",
 				"json",
@@ -210,12 +177,6 @@ return {
 		end,
 	},
 
-	-- use mini.starter instead of alpha
-	{ import = "lazyvim.plugins.extras.ui.mini-starter" },
-
-	-- add jsonls and schemastore ans setup treesitter for json, json5 and jsonc
-	{ import = "lazyvim.plugins.extras.lang.json" },
-
 	-- add any tools you want to have installed below
 	{
 		"williamboman/mason.nvim",
@@ -231,12 +192,14 @@ return {
 
 	-- Use <tab> for completion and snippets (supertab)
 	-- first: disable default <tab> and <s-tab> behavior in LuaSnip
-	{
-		"L3MON4D3/LuaSnip",
-		keys = function()
-			return {}
-		end,
-	},
+	-- {
+	-- 	"L3MON4D3/LuaSnip",
+	-- 	-- follow latest release.
+	-- 	version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+	-- -- install jsregexp (optional!).
+	-- 	build = "make install_jsregexp",
+	-- 	enabled = false
+	-- },
 	-- then: setup supertab in cmp
 	{
 		"hrsh7th/nvim-cmp",
