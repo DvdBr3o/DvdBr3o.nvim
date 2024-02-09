@@ -1,6 +1,6 @@
 return {
 	{ "loctvl842/monokai-pro.nvim" },
-    { "marko-cerovac/material.nvim" },
+	{ "marko-cerovac/material.nvim" },
 
 	{
 		"LazyVim/LazyVim",
@@ -22,5 +22,6 @@ return {
 				vim.cmd("colorscheme material-lighter")
 			end,
 		},
-	}
+		lazy = false,
+	},
 }
