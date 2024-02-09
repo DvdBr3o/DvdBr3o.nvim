@@ -96,6 +96,7 @@ return {
 		opts = {
 			---@type lspconfig.options
 			servers = {
+				lua_ls = { enabled = false },
 				-- tsserver will be automatically installed with mason and loaded with lspconfig
 				tsserver = {},
 			},
