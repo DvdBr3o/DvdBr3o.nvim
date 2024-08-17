@@ -4,6 +4,27 @@ return {
 	-- 	dependencies = "nvim-telescope/telescope.nvim", -- optional, if absent `vim.ui.select()` will be used
 	-- 	opts = {},
 	-- },
+    -- {
+    --     'madskjeldgaard/cppman.nvim',
+    --     requires = {
+    --      { 'MunifTanjim/nui.nvim' }
+    --     },
+    --     config = function()
+    --      local cppman = require"cppman"
+    --      cppman.setup()
+    --
+    --      -- Make a keymap to open the word under cursor in CPPman
+    --      vim.keymap.set("n", "<leader>cM", function()
+    --       cppman.open_cppman_for(vim.fn.expand("<cword>"))
+    --      end)
+    --
+    --      -- Open search box
+    --      vim.keymap.set("n", "<leader>cC", function()
+    --       cppman.input()
+    --      end)
+    --
+    --     end
+    -- },
 	{
     	"Mythos-404/xmake.nvim",
     	lazy = true,
@@ -154,4 +175,11 @@ return {
   		optional = true,
   		opts = { ensure_installed = { "codelldb" } },
 	},
+	{
+    	'eriks47/generate.nvim',
+    	dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		keys = {
+  		    { "<leader>ci", "<cmd>Generate implementations<cr>", desc = "Create implementation for declaration. (C/C++)" },
+  		},
+  	},
 }
