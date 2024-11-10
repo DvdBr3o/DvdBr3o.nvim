@@ -226,7 +226,7 @@ return {
     	'eriks47/generate.nvim',
     	dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		keys = {
-  		    { "<leader>ci", "<cmd>Generate implementations<cr>", desc = "Create implementation for declaration. (C/C++)" },
+  		    { "<leader>cI", "<cmd>Generate implementations<cr>", desc = "Create implementation for declaration. (C/C++)" },
   		},
   	},
 	{
