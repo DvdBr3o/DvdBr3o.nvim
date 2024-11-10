@@ -9,5 +9,5 @@ opt.shiftwidth = 4
 
 -- Neovide --
 if vim.g.neovide then
-    opt.guifont = "CaskaydiaCove Nerd Font Mono:14"
+  opt.guifont = "CaskaydiaCove Nerd Font Mono:14"
 end
