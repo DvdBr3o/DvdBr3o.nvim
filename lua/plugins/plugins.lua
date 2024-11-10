@@ -10,17 +10,15 @@ return {
     "folke/trouble.nvim",
     -- opts will be merged with the parent spec
     opts = { use_diagnostic_signs = true },
-  },
-
-  -- add symbols-outline
+  }, -- add symbols-outline
   {
     "simrat39/symbols-outline.nvim",
     cmd = "SymbolsOutline",
-    keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
+    keys = {
+      { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" },
+    },
     config = true,
-  },
-
-  -- override nvim-cmp and add cmp-emoji
+  }, -- override nvim-cmp and add cmp-emoji
   {
     "hrsh7th/nvim-cmp",
     dependencies = { "hrsh7th/cmp-emoji" },
@@ -29,19 +27,22 @@ return {
       local cmp = require("cmp")
       opts.sources = cmp.config.sources(vim.list_extend(opts.sources, { { name = "emoji" } }))
     end,
-  },
-
-  -- change some telescope options and a keymap to browse plugin files
+  }, -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      -- add a keymap to browse plugin files
-      -- stylua: ignore
-      {
-        "<leader>fp",
-        function() require("telescope.builtin").find_files({ cwd = require("lazy.core.config").options.root }) end,
-        desc = "Find Plugin File",
-      },
+            -- add a keymap to browse plugin files
+            -- stylua: ignore
+            {
+                "<leader>fp",
+                function()
+                    require("telescope.builtin").find_files({
+                        cwd = require("lazy.core.config").options.root
+                    })
+                end,
+                desc = "Find Plugin File"
+            }
+,
     },
     -- change some options
     opts = {
@@ -50,11 +51,13 @@ return {
         layout_config = { prompt_position = "top" },
         sorting_strategy = "ascending",
         winblend = 0,
+        get_selection_window = function()
+          require("edgy").goto_main()
+          return 0
+        end,
       },
     },
-  },
-
-  -- add telescope-fzf-native
+  }, -- add telescope-fzf-native
   -- {
   -- 	"telescope.nvim",
   -- 	dependencies = {
@@ -65,7 +68,6 @@ return {
   -- 		end,
   -- 	},
   -- },
-
   -- add pyright to lspconfig
   {
     "neovim/nvim-lspconfig",
@@ -77,17 +79,17 @@ return {
         pyright = {},
       },
     },
-  },
-
-  -- add tsserver and setup with typescript.nvim instead of lspconfig
+  }, -- add tsserver and setup with typescript.nvim instead of lspconfig
   {
     "neovim/nvim-lspconfig",
     dependencies = {
       "jose-elias-alvarez/typescript.nvim",
       init = function()
         require("lazyvim.util").lsp.on_attach(function(_, buffer)
-          -- stylua: ignore
-          vim.keymap.set( "n", "<leader>co", "TypescriptOrganizeImports", { buffer = buffer, desc = "Organize Imports" })
+                    -- stylua: ignore
+                    vim.keymap.set("n", "<leader>co",
+                                   "TypescriptOrganizeImports",
+                                   {buffer = buffer, desc = "Organize Imports"})
           vim.keymap.set("n", "<leader>cR", "TypescriptRenameFile", { desc = "Rename File", buffer = buffer })
         end)
       end,
@@ -125,8 +127,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        "bash",
-        -- "help",
+        "bash", -- "help",
         "html",
         "javascript",
         "json",
@@ -151,47 +152,28 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
-      })
+      vim.list_extend(opts.ensure_installed, { "tsx", "typescript" })
     end,
-  },
-
-  -- the opts function can also be used to change the default opts:
+  }, -- the opts function can also be used to change the default opts:
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function(_, opts)
       table.insert(opts.sections.lualine_x, "😄")
     end,
-  },
-
-  -- or you can return new options to override all the defaults
+  }, -- or you can return new options to override all the defaults
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = function()
-      return {
-        --[[add your custom lualine config here]]
+      return { --[[add your custom lualine config here]]
       }
     end,
-  },
-
-  -- add any tools you want to have installed below
+  }, -- add any tools you want to have installed below
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "flake8",
-      },
-    },
-  },
-
-  -- Use <tab> for completion and snippets (supertab)
+    opts = { ensure_installed = { "stylua", "shellcheck", "shfmt", "flake8" } },
+  }, -- Use <tab> for completion and snippets (supertab)
   -- first: disable default <tab> and <s-tab> behavior in LuaSnip
   {
     "L3MON4D3/LuaSnip",
@@ -200,13 +182,10 @@ return {
     -- install jsregexp (optional!).
     build = "make install_jsregexp",
     enabled = true,
-  },
-  -- then: setup supertab in cmp
+  }, -- then: setup supertab in cmp
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-emoji",
-    },
+    dependencies = { "hrsh7th/cmp-emoji" },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
       local has_words_before = function()
@@ -234,7 +213,9 @@ return {
           if cmp.visible() then
             local entry = cmp.get_selected_entry()
             if not entry then
-              cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+              cmp.select_next_item({
+                behavior = cmp.SelectBehavior.Select,
+              })
             else
               cmp.confirm()
             end
