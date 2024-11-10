@@ -6,3 +6,8 @@ local opt = vim.opt
 
 opt.tabstop = 4
 opt.shiftwidth = 4
+
+-- Neovide --
+if vim.g.neovide then
+    opt.guifont = "CaskaydiaCove Nerd Font Mono:14"
+end
