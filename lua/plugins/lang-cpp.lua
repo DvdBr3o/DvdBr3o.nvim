@@ -75,7 +75,6 @@ return {
             "--completion-style=detailed",
             "--function-arg-placeholders",
             "--fallback-style=none",
-            "--style=file",
           },
           init_options = {
             usePlaceholders = true,
