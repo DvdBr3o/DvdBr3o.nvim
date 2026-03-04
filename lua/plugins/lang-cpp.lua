@@ -74,7 +74,8 @@ return {
             "--header-insertion=iwyu",
             "--completion-style=detailed",
             "--function-arg-placeholders",
-            "--fallback-style=llvm",
+            "--fallback-style=none",
+            "--style=file",
           },
           init_options = {
             usePlaceholders = true,
